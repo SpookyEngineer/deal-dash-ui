@@ -6,6 +6,8 @@ export default <Partial<Config>>{
       colors: {
         "betpass-lightgrey": "#232A33",
         "betpass-grey": "#1a212a",
+        "betpass-dark-grey": "#0D131B",
+        "betpass-green": "#DAFB52",
       },
     },
   },

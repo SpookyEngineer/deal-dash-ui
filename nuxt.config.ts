@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
 
+  css: ["~/assets/css/main.css"],
+
   modules: [
     "@nuxt/ui",
     /* The above also includes: 
@@ -12,4 +14,9 @@ export default defineNuxtConfig({
     */
     "@morev/vue-transitions/nuxt",
   ],
+
+  colorMode: {
+    preference: "dark",
+    fallback: "light",
+  },
 });

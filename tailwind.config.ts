@@ -4,8 +4,8 @@ export default <Partial<Config>>{
   theme: {
     extend: {
       colors: {
-        "betpass-lightgrey": "1E1E1E",
-        "betpass-grey": "1A212A",
+        "betpass-lightgrey": "#232A33",
+        "betpass-grey": "#1a212a",
       },
     },
   },

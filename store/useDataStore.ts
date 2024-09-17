@@ -51,7 +51,7 @@ export const useCardStore = defineStore("cardStore", {
     },
 
     addCard(newCard: Card) {
-      this.cardData.push(newCard);
+      this.cardData.unshift(newCard);
     },
 
     removeCard(index: number) {

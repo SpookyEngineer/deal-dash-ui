@@ -21,14 +21,30 @@
       <UInput placeholder="Pesquisar por nome" />
     </div>
 
-    <div>
-      <card />
+    <div class="mt-16">
+      <card :cardData="cardStore.cardData" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
+import { useCardStore } from "~/store/useDataStore";
+
+const cardStore = useCardStore();
 
 const searchInput = ref("");
+
+const addNewCard = () => {
+  cardStore.addCard({
+    house: "Casa B",
+    grade: 4,
+    soldOut: false,
+    createdDate: "13/09/2024",
+    selected: false,
+  });
+};
+
+onMounted(() => {
+  cardStore.loadInitialData();
+});
 </script>

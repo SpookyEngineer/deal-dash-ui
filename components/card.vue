@@ -5,6 +5,7 @@
       :key="index"
       class="bg-betpass-grey py-4 px-8 rounded-2xl"
     >
+      <!-- Heading Section -->
       <div class="flex justify-between">
         <div class="flex items-center">
           <UCheckbox />
@@ -21,6 +22,7 @@
         </div>
       </div>
 
+      <!-- Description Section -->
       <div class="flex flex-col text-sm font-medium">
         <p class="mt-8">Descrição do deal</p>
         <p class="mt-6">Nota: {{ card.grade }}</p>

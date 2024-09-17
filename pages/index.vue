@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Heading Section -->
     <div class="flex justify-between items-center">
       <h1 class="text-2xl text-betpass-green font-bold">DEALS</h1>
       <button>
@@ -12,6 +13,7 @@
     </div>
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
 
+    <!-- Input needs to be reworked -->
     <div class="flex flex-col w-1/4">
       <input
         type="text"
@@ -21,6 +23,7 @@
       <UInput placeholder="Pesquisar por nome" />
     </div>
 
+    <!-- Cards Section -->
     <div class="mt-16">
       <card :cardData="cardStore.cardData" />
     </div>

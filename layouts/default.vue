@@ -1,10 +1,8 @@
 <template>
   <div class="flex">
-    <div>
-      <Sidebar />
-      <main class="p-16 ml-[210px] flex-grow">
-        <NuxtPage />
-      </main>
-    </div>
+    <Sidebar />
+    <main class="p-16 ml-[210px] flex-grow">
+      <NuxtPage />
+    </main>
   </div>
 </template>

@@ -13,7 +13,10 @@
     </div>
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
 
-    <CreateDealsSidebar v-model:sidebarOpen="sidebarOpen" />
+    <CreateDealsSidebar
+      v-model:sidebarOpen="sidebarOpen"
+      :dealIndex="dealIndex"
+    />
 
     <!-- Input needs to be reworked -->
     <div class="flex flex-col w-1/4">
@@ -23,11 +26,15 @@
         class="placeholder-[#999999] bg-[#A5A5A5] rounded-[10px] border-none p-2 focus:outline-none"
       />
       <UInput placeholder="Pesquisar por nome" />
+      <p>DealIndex: {{ dealIndex }}</p>
     </div>
 
     <!-- Cards Section -->
     <div class="mt-16">
-      <card :cardData="cardStore.cardData" />
+      <card
+        :cardData="cardStore.cardData"
+        @update:editingDeal="handleEditingDeal"
+      />
     </div>
   </div>
 </template>
@@ -41,8 +48,15 @@ const searchInput = ref("");
 
 const sidebarOpen = ref(false);
 
+const dealIndex = ref<number | "">("");
+
 function toggleCreateDealsSidebar() {
   sidebarOpen.value = !sidebarOpen.value;
+}
+
+function handleEditingDeal(cardIndex: number) {
+  dealIndex.value = cardIndex;
+  toggleCreateDealsSidebar();
 }
 
 onMounted(() => {

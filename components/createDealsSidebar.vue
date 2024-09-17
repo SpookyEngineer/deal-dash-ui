@@ -7,7 +7,10 @@
         class="sidebar fixed inset-y-0 right-0 bg-betpass-lightgrey p-12 my-[6px] border border-black rounded-l-2xl"
       >
         <div class="font-bold pr-16">
-          <p class="text-2xl mt-8">Criar Deal</p>
+          <p v-if="!editingDeal" class="text-2xl mt-8">Criar Deal</p>
+          <p v-else class="text-2xl mt-8">Editar Deal</p>
+
+          <p>Editing Deal: {{ editingDeal }}</p>
 
           <div class="mt-12">
             <div>
@@ -55,10 +58,18 @@
             Cancelar
           </button>
           <button
+            v-if="!editingDeal"
             class="button text-[12px] bg-betpass-green text-betpass-dark-green rounded-3xl"
             @click="createDeal"
           >
             Salvar
+          </button>
+          <button
+            v-else
+            class="button text-[12px] bg-betpass-green text-betpass-dark-green rounded-3xl"
+            @click="editDeal()"
+          >
+            Edit
           </button>
         </div>
       </div>
@@ -80,13 +91,28 @@ import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
 
+interface Card {
+  house: string;
+  grade: number | "";
+  soldOut: boolean;
+  createdDate: string;
+}
+
 interface Props {
   sidebarOpen: boolean;
+  dealIndex: number;
 }
 
 const props = defineProps<Props>();
 
 const emit = defineEmits(["update:sidebarOpen"]);
+
+const editingDeal = computed(() => {
+  if (cardStore.editingDeal && props.dealIndex) {
+    return true;
+  }
+  return false;
+});
 
 const houseName = ref("");
 const description = ref("");
@@ -123,9 +149,14 @@ function createDeal() {
   resetAndToggleSidebar();
 }
 
+function editDeal(cardIndex: number, updatedData: Partial<Card>) {
+  cardStore.modifyCard(cardIndex, updatedData);
+}
+
 function resetAndToggleSidebar() {
   resetValues();
   toggleSidebar();
+  cardStore.editingDeal = false;
 }
 
 function resetValues() {

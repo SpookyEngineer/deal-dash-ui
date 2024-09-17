@@ -13,10 +13,10 @@
         </div>
 
         <div class="flex items-center">
-          <button>
+          <button @click="editDeal(index)">
             <img src="../public/icons/edit.svg" />
           </button>
-          <button @click="removeCard(index)" class="ml-4">
+          <button @click="removeCard(index, card)" class="ml-4">
             <img src="../public/icons/delete.svg" />
           </button>
         </div>
@@ -38,6 +38,13 @@ import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
 
+const emit = defineEmits(["update:editingDeal"]);
+
+function editDeal(cardIndex: number, cardData: Card) {
+  cardStore.editingDeal = true;
+  emit("update:editingDeal", { cardIndex, cardData });
+}
+
 const removeCard = (index: number) => {
   cardStore.removeCard(index);
 };
@@ -47,7 +54,6 @@ interface Card {
   grade: number;
   soldOut: boolean;
   createdDate: string;
-  selected: boolean;
 }
 
 interface Props {

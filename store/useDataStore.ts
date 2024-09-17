@@ -11,6 +11,7 @@ export const useCardStore = defineStore("cardStore", {
   state: () => ({
     cardData: [] as Card[],
     houseValues: [] as number[],
+    editingDeal: false,
   }),
   actions: {
     loadInitialData() {
@@ -60,6 +61,17 @@ export const useCardStore = defineStore("cardStore", {
 
     removeCard(index: number) {
       this.cardData.splice(index, 1);
+    },
+
+    modifyCard(index: number, updatedData: Partial<Card>) {
+      if (index >= 0 && index < this.cardData.length) {
+        this.cardData[index] = {
+          ...this.cardData[index], // Preserve existing data
+          ...updatedData, // Overwrite with new data
+        };
+      } else {
+        console.error("Invalid index. Card not found.");
+      }
     },
   },
 });

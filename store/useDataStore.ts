@@ -14,8 +14,12 @@ export const useCardStore = defineStore("cardStore", {
   }),
   actions: {
     loadInitialData() {
+      // This will be where the data will be fetched from the database
+
       // Temporary Data
       this.houseValues = [1, 2, 3, 4, 5];
+
+      // When implementing the fetch, make the data sort by latest date
       this.cardData = [
         {
           house: "Casa A",

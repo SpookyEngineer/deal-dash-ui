@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     @nuxtjs/color-mode
     */
     "@morev/vue-transitions/nuxt",
+    "@pinia/nuxt",
   ],
 
   colorMode: {

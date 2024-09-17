@@ -3,7 +3,7 @@
     <!-- Heading Section -->
     <div class="flex justify-between items-center">
       <h1 class="text-2xl text-betpass-green font-bold">DEALS</h1>
-      <button>
+      <button @click="toggleCreateDealsSidebar()">
         <div class="bg-betpass-green rounded-3xl py-[10px] px-[34px]">
           <span class="text-betpass-dark-green font-bold text-sm"
             >CRIAR DEALS</span
@@ -12,6 +12,8 @@
       </button>
     </div>
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
+
+    <CreateDealsSidebar v-model:sidebarOpen="sidebarOpen" />
 
     <!-- Input needs to be reworked -->
     <div class="flex flex-col w-1/4">
@@ -36,6 +38,12 @@ import { useCardStore } from "~/store/useDataStore";
 const cardStore = useCardStore();
 
 const searchInput = ref("");
+
+const sidebarOpen = ref(false);
+
+function toggleCreateDealsSidebar() {
+  sidebarOpen.value = !sidebarOpen.value;
+}
 
 const addNewCard = () => {
   cardStore.addCard({

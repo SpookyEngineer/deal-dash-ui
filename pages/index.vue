@@ -45,16 +45,6 @@ function toggleCreateDealsSidebar() {
   sidebarOpen.value = !sidebarOpen.value;
 }
 
-const addNewCard = () => {
-  cardStore.addCard({
-    house: "Casa B",
-    grade: 4,
-    soldOut: false,
-    createdDate: "13/09/2024",
-    selected: false,
-  });
-};
-
 onMounted(() => {
   cardStore.loadInitialData();
 });

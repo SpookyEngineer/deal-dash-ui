@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 interface Card {
   house: string;
   grade: number | "";
+  description: string;
   soldOut: boolean;
   createdDate: string;
 }
@@ -25,30 +26,40 @@ export const useCardStore = defineStore("cardStore", {
         {
           house: "Casa A",
           grade: 1,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           soldOut: true,
           createdDate: "12/08/2024",
         },
         {
           house: "Casa B",
           grade: 2,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           soldOut: true,
           createdDate: "12/08/2024",
         },
         {
           house: "Casa C",
           grade: 3,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           soldOut: true,
           createdDate: "12/08/2024",
         },
         {
           house: "Casa D",
           grade: 4,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           soldOut: true,
           createdDate: "12/08/2024",
         },
         {
           house: "Casa E",
           grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
           soldOut: true,
           createdDate: "12/08/2024",
         },

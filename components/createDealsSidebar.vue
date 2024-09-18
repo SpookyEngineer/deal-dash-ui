@@ -96,6 +96,7 @@ function createDeal() {
   cardStore.addCard({
     house: houseName.value,
     grade: grade.value,
+    description: description.value,
     soldOut: soldOut.value,
     createdDate:
       typeof currentDate === "function" ? currentDate() : currentDate,

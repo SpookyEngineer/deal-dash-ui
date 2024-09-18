@@ -8,7 +8,7 @@
             <p class="mb-3">Nome da casa</p>
             <input
               class="input w-full"
-              v-model="cardData.house"
+              v-model="localCardData.house"
               placeholder="Exemplo: ABC BET"
               type="text"
             />
@@ -18,7 +18,7 @@
             <p class="mb-3">Descrição</p>
             <input
               class="input w-full"
-              v-model="cardData.description"
+              v-model="localCardData.description"
               placeholder="Descrição do deal"
               type="text"
             />
@@ -26,7 +26,7 @@
 
           <div class="mt-6">
             <p class="mb-3">Nota</p>
-            <select class="input" v-model="cardData.grade">
+            <select class="input" v-model="localCardData.grade">
               <option v-for="value in houseValues" :key="value" :value="value">
                 {{ value }}
               </option>
@@ -34,7 +34,7 @@
           </div>
 
           <div class="mt-11 flex items-center">
-            <UToggle v-model="cardData.soldOut" />
+            <UToggle v-model="localCardData.soldOut" />
             <p class="ml-4">Esgotar deal</p>
           </div>
         </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
@@ -77,23 +77,25 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(["update:editDealsSidebarOpen"]);
 
-// Computed property to keep cardData synchronized with the store
-const cardData = computed({
-  get: () => cardStore.cardBeingEdited,
-  set: (value: Card) => {
-    cardStore.cardBeingEdited = value;
-  },
+// Local copy of the card data for editing
+const localCardData = ref<Card>({
+  house: "",
+  grade: 0,
+  description: "",
+  soldOut: false,
+  createdDate: "",
 });
 
-// Watch for changes in the store and update cardData
+// Watch for changes in the store and update localCardData
 watch(
   () => cardStore.cardBeingEdited,
   (newCardData) => {
-    cardData.value = newCardData;
+    localCardData.value = { ...newCardData };
   },
   { deep: true }
 );
 
+// Compute house values
 const houseValues = computed(() => cardStore.houseValues);
 
 function toggleSidebar() {
@@ -101,7 +103,9 @@ function toggleSidebar() {
 }
 
 function saveDeal() {
-  cardStore.modifyCard(props.dealIndex, cardData.value);
+  console.log("Deal Index:", props.dealIndex);
+  console.log("Local Card Data:", localCardData.value);
+  cardStore.modifyCard(props.dealIndex, localCardData.value);
   toggleSidebar();
 }
 </script>

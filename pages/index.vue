@@ -31,8 +31,8 @@
 
     <!-- Cards Section -->
     <div class="mt-16">
-      <card
-        :cardData="cardStore.cardData"
+      <CardsSection
+        :cardsData="cardStore.cardData"
         @update:editingDeal="handleEditingDeal"
       />
     </div>

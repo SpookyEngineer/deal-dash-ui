@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-3 gap-12">
     <div
-      v-for="(card, index) in cardData"
+      v-for="(card, index) in cardsData"
       :key="index"
       class="bg-betpass-grey py-4 px-8 rounded-2xl"
     >
@@ -41,7 +41,7 @@ const cardStore = useCardStore();
 const emit = defineEmits(["update:editingDeal"]);
 
 function editDeal(cardIndex: number) {
-  cardStore.cardBeingEdited = props.cardData[cardIndex];
+  cardStore.cardBeingEdited = props.cardsData[cardIndex];
   emit("update:editingDeal", cardIndex);
 }
 
@@ -58,7 +58,7 @@ interface Card {
 }
 
 interface Props {
-  cardData: Card[];
+  cardsData: Card[];
 }
 
 const props = defineProps<Props>();

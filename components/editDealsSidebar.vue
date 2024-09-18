@@ -95,7 +95,6 @@ watch(
   { deep: true }
 );
 
-// Compute house values
 const houseValues = computed(() => cardStore.houseValues);
 
 function toggleSidebar() {

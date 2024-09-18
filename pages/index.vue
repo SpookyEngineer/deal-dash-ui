@@ -20,10 +20,12 @@
       v-model:editDealsSidebarOpen="editDealsSidebarOpen"
       :dealIndex="dealIndex"
     />
-    <!-- Input needs to be reworked -->
+
+    <!-- Input filter -->
     <div class="flex flex-col w-1/4">
       <input
         type="text"
+        v-model="searchInput"
         placeholder="Pesquisar por nome"
         class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none"
       />
@@ -32,7 +34,7 @@
     <!-- Cards Section -->
     <div class="mt-16">
       <CardsSection
-        :cardsData="cardStore.cardData"
+        :cardsData="filteredCardsData"
         @update:editingDeal="handleEditingDeal"
       />
     </div>
@@ -40,6 +42,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, onMounted } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
@@ -48,12 +51,12 @@ const searchInput = ref("");
 
 const createDealsSidebarOpen = ref(false);
 const editDealsSidebarOpen = ref(false);
-
 const dealIndex = ref<number>(0);
 
 function toggleCreateDealsSidebar() {
   createDealsSidebarOpen.value = !createDealsSidebarOpen.value;
 }
+
 function toggleEditDealsSidebar() {
   editDealsSidebarOpen.value = !editDealsSidebarOpen.value;
 }
@@ -62,6 +65,13 @@ function handleEditingDeal({ cardIndex }: { cardIndex: number }) {
   dealIndex.value = cardIndex;
   toggleEditDealsSidebar();
 }
+
+const filteredCardsData = computed(() => {
+  const searchTerm = searchInput.value.toLowerCase();
+  return cardStore.cardData.filter((card) =>
+    card.house.toLowerCase().includes(searchTerm)
+  );
+});
 
 onMounted(() => {
   cardStore.loadInitialData();

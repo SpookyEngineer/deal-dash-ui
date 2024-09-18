@@ -30,6 +30,8 @@
         <p class="mb-8">Data de criação: {{ card.createdDate }}</p>
       </div>
     </div>
+
+    <!-- Sidebars related to card manipulation -->
     <DeleteConformationSidebar
       v-model:deleteDealSidebarOpen="deleteDealSidebarOpen"
       :cardIndex="cardIndex"

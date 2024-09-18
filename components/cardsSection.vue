@@ -3,7 +3,7 @@
     <div
       v-for="(card, index) in cardsData"
       :key="index"
-      class="bg-betpass-grey py-4 px-8 rounded-2xl"
+      class="bg-betpass-grey py-4 px-8 rounded-2xl hover:shadow-xl"
     >
       <!-- Heading Section -->
       <div class="flex justify-between">

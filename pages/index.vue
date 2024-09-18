@@ -4,7 +4,7 @@
     <div class="flex justify-between items-center">
       <h1 class="text-2xl text-betpass-green font-bold">DEALS</h1>
       <button @click="toggleCreateDealsSidebar()">
-        <div class="bg-betpass-green rounded-3xl py-[10px] px-[34px]">
+        <div class="bg-betpass-green rounded-3xl py-[10px] px-4 md:px-[34px]">
           <span class="text-betpass-dark-green font-bold text-sm">
             CRIAR DEALS
           </span>
@@ -18,7 +18,7 @@
     />
 
     <!-- Input filter -->
-    <div class="flex flex-col w-1/4">
+    <div class="flex flex-col w-2/3 md:w-2/5 lg:w-1/4">
       <input
         type="text"
         v-model="searchInput"

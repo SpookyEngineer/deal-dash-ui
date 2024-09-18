@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebar">
+  <div class="sidebar">
     <nav>
       <ul>
         <li v-for="(item, index) in menuItems" :key="index">
@@ -14,11 +14,21 @@
         </li>
       </ul>
     </nav>
-  </aside>
+  </div>
 </template>
 
 <script setup lang="ts">
-const menuItems = [{ label: "Loja de Deals", route: "/", icon: "deals" }];
+interface MenuItem {
+  label: string;
+  route: string;
+  icon: string;
+}
+
+interface Props {
+  menuItems: MenuItem[];
+}
+
+const props = defineProps<Props>();
 </script>
 
 <style scoped>

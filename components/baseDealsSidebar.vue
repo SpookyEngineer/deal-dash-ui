@@ -4,7 +4,7 @@
     <TransitionSlide :offset="['100%', 0]">
       <div
         v-if="sidebarOpen"
-        class="sidebar fixed inset-y-0 right-0 bg-betpass-lightgrey p-12 my-[6px] border border-black rounded-l-2xl"
+        class="sidebar md:max-w-[40%] fixed inset-y-0 right-0 bg-betpass-lightgrey p-12 md:my-[6px] border border-black md:rounded-l-2xl"
       >
         <slot name="sidebarContent" />
       </div>
@@ -30,7 +30,6 @@ const props = defineProps<Props>();
 
 <style scoped>
 .sidebar {
-  max-width: 40%;
   width: 100%;
   z-index: 20;
 }

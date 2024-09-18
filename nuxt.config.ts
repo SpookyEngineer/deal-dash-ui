@@ -5,6 +5,12 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
+  app: {
+    head: {
+      title: "Betpass Admin Panel",
+    },
+  },
+
   modules: [
     "@nuxt/ui",
     /* The above also includes: 

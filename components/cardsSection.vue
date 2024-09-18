@@ -30,6 +30,10 @@
         <p class="mb-8">Data de criação: {{ card.createdDate }}</p>
       </div>
     </div>
+    <DeleteConformationSidebar
+      v-model:deleteDealSidebarOpen="deleteDealSidebarOpen"
+      :cardIndex="cardIndex"
+    />
   </div>
 </template>
 
@@ -40,14 +44,22 @@ const cardStore = useCardStore();
 
 const emit = defineEmits(["update:editingDeal"]);
 
+const deleteDealSidebarOpen = ref(false);
+const cardIndex = ref(0);
+
+function toggleDeleteDealsSidebar() {
+  deleteDealSidebarOpen.value = !deleteDealSidebarOpen.value;
+}
+
 function editDeal(cardIndex: number) {
   cardStore.cardBeingEdited = props.cardsData[cardIndex];
   emit("update:editingDeal", cardIndex);
 }
 
-const removeCard = (index: number) => {
-  cardStore.removeCard(index);
-};
+function removeCard(index: number) {
+  cardIndex.value = index;
+  toggleDeleteDealsSidebar();
+}
 
 interface Card {
   house: string;

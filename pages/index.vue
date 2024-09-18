@@ -25,10 +25,8 @@
       <input
         type="text"
         placeholder="Pesquisar por nome"
-        class="placeholder-[#999999] bg-[#A5A5A5] rounded-[10px] border-none p-2 focus:outline-none"
+        class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none"
       />
-      <UInput placeholder="Pesquisar por nome" />
-      <p>DealIndex: {{ dealIndex }}</p>
     </div>
 
     <!-- Cards Section -->

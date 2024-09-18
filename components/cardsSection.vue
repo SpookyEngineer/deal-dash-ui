@@ -46,9 +46,21 @@
 <script setup lang="ts">
 import { useCardStore } from "~/store/useDataStore";
 
-const cardStore = useCardStore();
+interface Card {
+  house: string;
+  grade: number;
+  description: string;
+  soldOut: boolean;
+  createdDate: string;
+}
 
-const emit = defineEmits(["update:editingDeal"]);
+interface Props {
+  cardsData: Card[];
+}
+
+const props = defineProps<Props>();
+
+const cardStore = useCardStore();
 
 const deleteDealSidebarOpen = ref(false);
 const editDealSidebarOpen = ref(false);
@@ -72,18 +84,4 @@ function removeCard(index: number) {
   cardIndex.value = index;
   toggleDeleteDealsSidebar();
 }
-
-interface Card {
-  house: string;
-  grade: number;
-  description: string;
-  soldOut: boolean;
-  createdDate: string;
-}
-
-interface Props {
-  cardsData: Card[];
-}
-
-const props = defineProps<Props>();
 </script>

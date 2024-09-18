@@ -70,16 +70,10 @@ const props = defineProps<Props>();
 
 const emit = defineEmits(["update:createDealsSidebarOpen"]);
 
-function toggleSidebar() {
-  emit("update:createDealsSidebarOpen", !props.createDealsSidebarOpen);
-}
-
 const houseName = ref("");
 const description = ref("");
 const grade = ref<number>(0);
 const soldOut = ref<boolean>(false);
-
-const houseValues = computed(() => cardStore.houseValues);
 
 const currentDate = () => {
   const today = new Date();
@@ -91,6 +85,8 @@ const currentDate = () => {
 };
 
 let defaultGradeValue = ref<number>(0);
+
+const houseValues = computed(() => cardStore.houseValues);
 
 // Watching for changes in houseValues to set the default grade
 watch(
@@ -129,6 +125,10 @@ function resetValues() {
   description.value = "";
   grade.value = defaultGradeValue.value;
   soldOut.value = false;
+}
+
+function toggleSidebar() {
+  emit("update:createDealsSidebarOpen", !props.createDealsSidebarOpen);
 }
 </script>
 

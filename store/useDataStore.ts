@@ -63,6 +63,78 @@ export const useCardStore = defineStore("cardStore", {
           soldOut: true,
           createdDate: "12/08/2024",
         },
+        {
+          house: "Casa F",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa G",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa H",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa I",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa J",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa K",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa L",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa M",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
+        {
+          house: "Casa N",
+          grade: 5,
+          description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          soldOut: true,
+          createdDate: "12/08/2024",
+        },
       ];
     },
 

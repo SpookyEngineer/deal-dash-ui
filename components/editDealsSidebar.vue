@@ -103,8 +103,6 @@ function toggleSidebar() {
 }
 
 function saveDeal() {
-  console.log("Deal Index:", props.dealIndex);
-  console.log("Local Card Data:", localCardData.value);
   cardStore.modifyCard(props.dealIndex, localCardData.value);
   toggleSidebar();
 }

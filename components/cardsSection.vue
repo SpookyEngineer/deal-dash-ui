@@ -34,6 +34,10 @@
       v-model:deleteDealSidebarOpen="deleteDealSidebarOpen"
       :cardIndex="cardIndex"
     />
+    <EditDealsSidebar
+      v-model:editDealSidebarOpen="editDealSidebarOpen"
+      :cardIndex="cardIndex"
+    />
   </div>
 </template>
 
@@ -45,15 +49,21 @@ const cardStore = useCardStore();
 const emit = defineEmits(["update:editingDeal"]);
 
 const deleteDealSidebarOpen = ref(false);
+const editDealSidebarOpen = ref(false);
 const cardIndex = ref(0);
 
 function toggleDeleteDealsSidebar() {
   deleteDealSidebarOpen.value = !deleteDealSidebarOpen.value;
 }
 
-function editDeal(cardIndex: number) {
-  cardStore.cardBeingEdited = props.cardsData[cardIndex];
-  emit("update:editingDeal", cardIndex);
+function toggleEditDealsSidebar() {
+  editDealSidebarOpen.value = !editDealSidebarOpen.value;
+}
+
+function editDeal(index: number) {
+  cardStore.cardBeingEdited = props.cardsData[index];
+  cardIndex.value = index;
+  toggleEditDealsSidebar();
 }
 
 function removeCard(index: number) {

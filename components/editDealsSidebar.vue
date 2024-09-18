@@ -1,5 +1,5 @@
 <template>
-  <BaseDealsSidebar :sidebar-open="editDealsSidebarOpen">
+  <BaseDealsSidebar :sidebar-open="editDealSidebarOpen">
     <template #sidebarContent>
       <div class="font-bold pr-16">
         <p class="text-2xl mt-8">Editar Deal</p>
@@ -70,12 +70,12 @@ interface Card {
 }
 
 interface Props {
-  editDealsSidebarOpen: boolean;
-  dealIndex: number;
+  editDealSidebarOpen: boolean;
+  cardIndex: number;
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(["update:editDealsSidebarOpen"]);
+const emit = defineEmits(["update:editDealSidebarOpen"]);
 
 // Local copy of the card data for editing
 const localCardData = ref<Card>({
@@ -99,11 +99,11 @@ watch(
 const houseValues = computed(() => cardStore.houseValues);
 
 function toggleSidebar() {
-  emit("update:editDealsSidebarOpen", !props.editDealsSidebarOpen);
+  emit("update:editDealSidebarOpen", !props.editDealSidebarOpen);
 }
 
 function saveDeal() {
-  cardStore.modifyCard(props.dealIndex, localCardData.value);
+  cardStore.modifyCard(props.cardIndex, localCardData.value);
   toggleSidebar();
 }
 </script>

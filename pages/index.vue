@@ -16,10 +16,6 @@
     <CreateDealsSidebar
       v-model:createDealsSidebarOpen="createDealsSidebarOpen"
     />
-    <EditDealsSidebar
-      v-model:editDealsSidebarOpen="editDealsSidebarOpen"
-      :dealIndex="dealIndex"
-    />
 
     <!-- Input filter -->
     <div class="flex flex-col w-1/4">
@@ -33,10 +29,7 @@
 
     <!-- Cards Section -->
     <div class="mt-16">
-      <CardsSection
-        :cardsData="filteredCardsData"
-        @update:editingDeal="handleEditingDeal"
-      />
+      <CardsSection :cardsData="filteredCardsData" />
     </div>
   </div>
 </template>
@@ -50,20 +43,9 @@ const cardStore = useCardStore();
 const searchInput = ref("");
 
 const createDealsSidebarOpen = ref(false);
-const editDealsSidebarOpen = ref(false);
-const dealIndex = ref<number>(0);
 
 function toggleCreateDealsSidebar() {
   createDealsSidebarOpen.value = !createDealsSidebarOpen.value;
-}
-
-function toggleEditDealsSidebar() {
-  editDealsSidebarOpen.value = !editDealsSidebarOpen.value;
-}
-
-function handleEditingDeal(cardIndex: number) {
-  dealIndex.value = cardIndex;
-  toggleEditDealsSidebar();
 }
 
 const filteredCardsData = computed(() => {

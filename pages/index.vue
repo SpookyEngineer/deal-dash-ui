@@ -61,7 +61,7 @@ function toggleEditDealsSidebar() {
   editDealsSidebarOpen.value = !editDealsSidebarOpen.value;
 }
 
-function handleEditingDeal({ cardIndex }: { cardIndex: number }) {
+function handleEditingDeal(cardIndex: number) {
   dealIndex.value = cardIndex;
   toggleEditDealsSidebar();
 }

@@ -8,10 +8,14 @@
       <!-- Heading Section -->
       <div class="flex justify-between">
         <div class="flex items-center">
-          <UCheckbox />
+          <!-- Assuming this is a checkbox, however with no further context no further development is possible -->
+          <div
+            :id="`phantom checkbox ${index}`"
+            class="h-[23px] w-[23px] rounded-lg bg-[#D9D9D9]"
+          />
+
           <p class="ml-2">{{ card.house }}</p>
         </div>
-
         <div class="flex items-center">
           <button @click="editDeal(index)">
             <img src="../public/icons/edit.svg" />

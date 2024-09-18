@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 interface Card {
   house: string;
-  grade: number | "";
+  grade: number;
   description: string;
   soldOut: boolean;
   createdDate: string;
@@ -12,7 +12,7 @@ export const useCardStore = defineStore("cardStore", {
   state: () => ({
     cardData: [] as Card[],
     houseValues: [] as number[],
-    editingDeal: false,
+    cardBeingEdited: {} as Card,
   }),
   actions: {
     loadInitialData() {

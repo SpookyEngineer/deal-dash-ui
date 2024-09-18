@@ -14,10 +14,12 @@
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
 
     <CreateDealsSidebar
-      v-model:sidebarOpen="sidebarOpen"
+      v-model:createDealsSidebarOpen="createDealsSidebarOpen"
+    />
+    <EditDealsSidebar
+      v-model:editDealsSidebarOpen="editDealsSidebarOpen"
       :dealIndex="dealIndex"
     />
-
     <!-- Input needs to be reworked -->
     <div class="flex flex-col w-1/4">
       <input
@@ -46,17 +48,21 @@ const cardStore = useCardStore();
 
 const searchInput = ref("");
 
-const sidebarOpen = ref(false);
+const createDealsSidebarOpen = ref(false);
+const editDealsSidebarOpen = ref(false);
 
-const dealIndex = ref<number | "">("");
+const dealIndex = ref<number>(0);
 
 function toggleCreateDealsSidebar() {
-  sidebarOpen.value = !sidebarOpen.value;
+  createDealsSidebarOpen.value = !createDealsSidebarOpen.value;
+}
+function toggleEditDealsSidebar() {
+  editDealsSidebarOpen.value = !editDealsSidebarOpen.value;
 }
 
-function handleEditingDeal(cardIndex: number) {
+function handleEditingDeal({ cardIndex }: { cardIndex: number }) {
   dealIndex.value = cardIndex;
-  toggleCreateDealsSidebar();
+  toggleEditDealsSidebar();
 }
 
 onMounted(() => {

@@ -1,5 +1,5 @@
 <template>
-  <BaseDealsSidebar :sidebar-open="sidebarOpen">
+  <BaseDealsSidebar :sidebar-open="createDealsSidebarOpen">
     <template #sidebarContent>
       <div class="font-bold pr-16">
         <p class="text-2xl mt-8">Criar Deal</p>
@@ -63,27 +63,40 @@ import { useCardStore } from "~/store/useDataStore";
 const cardStore = useCardStore();
 
 interface Props {
-  sidebarOpen: boolean;
+  createDealsSidebarOpen: boolean;
 }
 
 const props = defineProps<Props>();
 
-const emit = defineEmits(["update:sidebarOpen"]);
+const emit = defineEmits(["update:createDealsSidebarOpen"]);
+
+function toggleSidebar() {
+  emit("update:createDealsSidebarOpen", !props.createDealsSidebarOpen);
+}
 
 const houseName = ref("");
 const description = ref("");
-const grade = ref<number | "">("");
+const grade = ref<number>(0);
 const soldOut = ref<boolean>(false);
 
 const houseValues = computed(() => cardStore.houseValues);
 
-let defaultGradeValue = ref<number | "">("");
+const currentDate = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = today.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
+let defaultGradeValue = ref<number>(0);
 
 // Watching for changes in houseValues to set the default grade
 watch(
   houseValues,
   (newValues) => {
-    if (newValues.length > 0 && grade.value === "") {
+    if (newValues.length > 0 && grade.value === 0) {
       // Setting the default value as the first option
       grade.value = newValues[0];
       defaultGradeValue.value = newValues[0];
@@ -116,19 +129,6 @@ function resetValues() {
   description.value = "";
   grade.value = defaultGradeValue.value;
   soldOut.value = false;
-}
-
-const currentDate = () => {
-  const today = new Date();
-  const day = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-  const year = today.getFullYear();
-
-  return `${day}/${month}/${year}`;
-};
-
-function toggleSidebar() {
-  emit("update:sidebarOpen", !props.sidebarOpen);
 }
 </script>
 

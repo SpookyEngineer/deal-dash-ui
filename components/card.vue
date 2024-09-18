@@ -41,7 +41,6 @@ const cardStore = useCardStore();
 const emit = defineEmits(["update:editingDeal"]);
 
 function editDeal(cardIndex: number) {
-  console.log(cardIndex);
   cardStore.cardBeingEdited = props.cardData[cardIndex];
   emit("update:editingDeal", cardIndex);
 }

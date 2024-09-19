@@ -69,6 +69,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits(["update:createDealsSidebarOpen"]);
+const toast = useToast();
 
 const houseName = ref("");
 const description = ref("");
@@ -102,7 +103,7 @@ watch(
 );
 
 function createDeal() {
-  cardStore.addCard({
+  const response = cardStore.addCard({
     house: houseName.value,
     grade: grade.value,
     description: description.value,
@@ -112,6 +113,13 @@ function createDeal() {
     //The above ensures that if currentDate is a function, it gets called to return a string.
     // If currentDate is already a string, it is used as is.
   });
+
+  if (!response) {
+    toast.add({ title: "Erro ao criar deal" });
+  }
+
+  cardStore.fetchDeals(1, ""); // Resets page to 1 and without search input
+  toast.add({ title: "Deal criado" });
   resetAndToggleSidebar();
 }
 

@@ -28,8 +28,20 @@ export const useCardStore = defineStore("cardStore", {
       this.houseValues = houseValues;
     },
 
-    addCard(newCard: Card) {
-      this.cardData.unshift(newCard);
+    async addCard(newCard: Card) {
+      const baseURL = useRuntimeConfig().public.mongoBaseUrl;
+
+      try {
+        const response = await axios.post(`${baseURL}/deals`, newCard, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return response.status;
+      } catch (error) {
+        console.error("Error creating card:", error);
+        return null;
+      }
     },
 
     async removeCard(cardId: string) {

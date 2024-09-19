@@ -61,14 +61,6 @@ import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
 
-interface Card {
-  house: string;
-  grade: number;
-  description: string;
-  soldOut: boolean;
-  createdDate: string;
-}
-
 interface Props {
   editDealSidebarOpen: boolean;
   cardIndex: number;
@@ -84,6 +76,9 @@ const localCardData = ref<Card>({
   description: "",
   soldOut: false,
   createdDate: "",
+  _id: {
+    $oid: "",
+  },
 });
 
 // Watch for changes in the store and update localCardData

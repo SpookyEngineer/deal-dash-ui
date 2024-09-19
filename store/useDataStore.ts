@@ -1,17 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
-interface Card {
-  house: string;
-  grade: number;
-  description: string;
-  soldOut: boolean;
-  createdDate: string;
-  _id?: {
-    $oid: string;
-  };
-}
-
 async function fetchHouseValues() {
   const baseURL = useRuntimeConfig().public.mongoBaseUrl;
 

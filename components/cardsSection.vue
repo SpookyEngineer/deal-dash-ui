@@ -81,14 +81,6 @@ import { ref, onMounted, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 import axios from "axios";
 
-interface Card {
-  house: string;
-  grade: number;
-  description: string;
-  soldOut: boolean;
-  createdDate: string;
-}
-
 interface Props {
   searchInput: string;
 }

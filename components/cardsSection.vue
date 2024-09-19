@@ -82,12 +82,6 @@ import { ref, onMounted, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 import axios from "axios";
 
-interface Props {
-  searchInput: string;
-}
-
-const props = defineProps<Props>();
-
 const cardStore = useCardStore();
 
 const deleteDealSidebarOpen = ref(false);
@@ -98,7 +92,7 @@ const baseURL = useRuntimeConfig().public.mongoBaseUrl;
 const currentPage = ref(1);
 const totalPages = ref(1);
 
-const searchInput = ref(props.searchInput || "");
+const searchInput = ref("");
 const cardsData = ref<Card[]>([]);
 
 const fetchDeals = async (page: number, searchInput: string) => {

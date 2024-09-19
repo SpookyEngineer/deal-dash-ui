@@ -14,7 +14,7 @@
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
 
     <!-- Cards Section -->
-    <CardsSection :searchInput="searchInput" />
+    <CardsSection />
 
     <CreateDealsSidebar
       v-model:createDealsSidebarOpen="createDealsSidebarOpen"
@@ -28,7 +28,6 @@ import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
 
-const searchInput = ref("");
 const createDealsSidebarOpen = ref(false);
 
 function toggleCreateDealsSidebar() {

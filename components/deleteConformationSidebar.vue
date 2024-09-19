@@ -6,7 +6,7 @@
           <p class="text-2xl mt-8">Excluir Deal</p>
           <p class="mt-12 font-normal">
             Tem certeza que deseja excluir o deal
-            <span class="font-bold">{{ card.house }}</span
+            <span class="font-bold">{{ card.house || "N/A" }}</span
             >?
           </p>
         </div>
@@ -31,23 +31,31 @@
 import { computed } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
+const cardStore = useCardStore();
+
 interface Props {
   deleteDealSidebarOpen: boolean;
-  cardIndex: number;
+  cardId: string;
 }
 
-const cardStore = useCardStore();
 const props = defineProps<Props>();
-const emit = defineEmits(["update:deleteDealSidebarOpen"]);
+const emit = defineEmits([
+  "update:deleteDealSidebarOpen",
+  "update:dealDeleted",
+]);
 
-const card = computed(() => cardStore.cardData[props.cardIndex]);
+const card = computed(() => cardStore.cardBeingEdited);
 
 function toggleSidebar() {
   emit("update:deleteDealSidebarOpen", !props.deleteDealSidebarOpen);
 }
 
 function removeCard() {
-  cardStore.removeCard(props.cardIndex);
+  const response = cardStore.removeCard(props.cardId);
+
+  if (!response) return;
+
+  emit("update:dealDeleted");
   toggleSidebar();
 }
 </script>

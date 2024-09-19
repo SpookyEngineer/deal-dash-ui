@@ -30,8 +30,17 @@ export const useCardStore = defineStore("cardStore", {
       this.cardData.unshift(newCard);
     },
 
-    removeCard(index: number) {
-      this.cardData.splice(index, 1);
+    async removeCard(cardId: string) {
+      const baseURL = useRuntimeConfig().public.mongoBaseUrl;
+
+      try {
+        const response = await axios.delete(`${baseURL}/deals/${cardId}`);
+
+        return response.status;
+      } catch (error) {
+        console.error("Error deleting card:", error);
+        return null;
+      }
     },
 
     modifyCard(index: number, updatedData: Partial<Card>) {

@@ -13,24 +13,24 @@
     <!-- Deal Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
       <div
-        v-for="(card, index) in cardsData"
-        :key="index"
+        v-for="card in cardsData"
+        :key="card._id"
         class="bg-betpass-grey py-4 px-8 rounded-2xl hover:shadow-xl"
       >
         <!-- Heading Section -->
         <div class="flex justify-between">
           <div class="flex items-center">
             <div
-              :id="`phantom checkbox ${index}`"
+              :id="`phantom checkbox ${card._id}`"
               class="h-[23px] w-[23px] rounded-lg bg-[#D9D9D9]"
             />
             <p class="ml-2">{{ card.house }}</p>
           </div>
           <div class="flex items-center">
-            <button @click="editDeal(index)">
+            <button @click="editDeal(card._id)">
               <img src="../public/icons/edit.svg" />
             </button>
-            <button @click="removeCard(index)" class="ml-4">
+            <button @click="removeCard(card._id)" class="ml-4">
               <img src="../public/icons/delete.svg" />
             </button>
           </div>
@@ -67,12 +67,13 @@
     <!-- Sidebars related to card manipulation -->
     <DeleteConformationSidebar
       v-model:deleteDealSidebarOpen="deleteDealSidebarOpen"
-      :cardIndex="cardIndex"
+      @update:dealDeleted="fetchDeals(currentPage, searchInput)"
+      :cardId="cardId"
     />
-    <EditDealsSidebar
+    <!--     <EditDealsSidebar
       v-model:editDealSidebarOpen="editDealSidebarOpen"
       :cardIndex="cardIndex"
-    />
+    /> -->
   </div>
 </template>
 
@@ -91,7 +92,7 @@ const cardStore = useCardStore();
 
 const deleteDealSidebarOpen = ref(false);
 const editDealSidebarOpen = ref(false);
-const cardIndex = ref(0);
+const cardId = ref("");
 
 const baseURL = useRuntimeConfig().public.mongoBaseUrl;
 const currentPage = ref(1);
@@ -128,16 +129,27 @@ const goToPage = (pageIndex: number) => {
   fetchDeals(currentPage.value, searchInput.value);
 };
 
-const editDeal = (index: number) => {
-  cardStore.cardBeingEdited = cardsData.value[index];
-  cardIndex.value = index;
+const editDeal = (id?: string) => {
+  getCardWithId(id);
+
   editDealSidebarOpen.value = true;
 };
 
-const removeCard = (index: number) => {
-  cardIndex.value = index;
+const removeCard = (id?: string) => {
+  getCardWithId(id);
+
   deleteDealSidebarOpen.value = true;
 };
+
+function getCardWithId(id?: string) {
+  if (!id) return;
+  const card = cardsData.value.find((card) => card._id === id);
+
+  if (card) {
+    cardId.value = id;
+    cardStore.cardBeingEdited = card;
+  }
+}
 
 onMounted(() => {
   fetchDeals(currentPage.value, searchInput.value);

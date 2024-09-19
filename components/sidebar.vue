@@ -2,7 +2,7 @@
   <div class="sidebar">
     <nav>
       <ul>
-        <li v-for="(item, index) in menuItems" :key="index">
+        <li v-for="(item, index) in SidebarMenuItems" :key="index">
           <div class="flex">
             <img :src="`/icons/${item.icon}.svg`" />
             <NuxtLink
@@ -18,14 +18,8 @@
 </template>
 
 <script setup lang="ts">
-interface MenuItem {
-  label: string;
-  route: string;
-  icon: string;
-}
-
 interface Props {
-  menuItems: MenuItem[];
+  SidebarMenuItems: SidebarMenuItem[];
 }
 
 const props = defineProps<Props>();

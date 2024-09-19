@@ -6,3 +6,9 @@ interface Card {
   createdDate: string;
   _id?: string;
 }
+
+interface SidebarMenuItem {
+  label: string;
+  route: string;
+  icon: string;
+}

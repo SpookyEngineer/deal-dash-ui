@@ -60,7 +60,7 @@ function removeCard() {
   }
 
   emit("update:dealDeleted");
-  toast.add({ title: "Deal deletado" });
+  toast.add({ title: "Deal deletado com sucesso" });
   toggleSidebar();
 }
 </script>

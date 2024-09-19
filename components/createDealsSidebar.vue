@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
@@ -103,23 +103,32 @@ watch(
 );
 
 function createDeal() {
+  // Validation for required fields
+  if (!houseName.value) {
+    toast.add({ title: "Nome da casa é obrigatório" });
+    return;
+  }
+
+  if (!description.value) {
+    toast.add({ title: "Descrição é obrigatória" });
+    return;
+  }
+
   const response = cardStore.addCard({
     house: houseName.value,
     grade: grade.value,
     description: description.value,
     soldOut: soldOut.value,
-    createdDate:
-      typeof currentDate === "function" ? currentDate() : currentDate,
-    //The above ensures that if currentDate is a function, it gets called to return a string.
-    // If currentDate is already a string, it is used as is.
+    createdDate: currentDate(),
   });
 
   if (!response) {
     toast.add({ title: "Erro ao criar deal" });
+    return;
   }
 
-  cardStore.fetchDeals(1, ""); // Resets page to 1 and without search input
-  toast.add({ title: "Deal criado" });
+  toast.add({ title: "Deal criado com sucesso" });
+  cardStore.fetchDeals(1, "");
   resetAndToggleSidebar();
 }
 

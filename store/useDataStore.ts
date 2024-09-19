@@ -1,4 +1,10 @@
 import { defineStore } from "pinia";
+import dotenv from "dotenv";
+
+// Loading environment variables
+dotenv.config();
+
+const baseURL = process.env.MONGO_BASE_URL;
 
 interface Card {
   house: string;

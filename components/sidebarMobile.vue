@@ -5,7 +5,7 @@
       <img src="../public/icons/menu.svg" alt="Menu" />
     </button>
 
-    <!-- Sidebar with transition -->
+    <!-- Sidebar -->
     <aside
       :class="{
         'sidebar-open': isSidebarOpen,
@@ -34,6 +34,8 @@
         </ul>
       </nav>
     </aside>
+
+    <!-- Overlay -->
     <TransitionFade>
       <div
         v-if="isSidebarOpen"
@@ -57,7 +59,6 @@ function toggleSidebar() {
 </script>
 
 <style scoped>
-/* Menu Button */
 .menu-button {
   position: fixed;
   top: 16px;
@@ -68,7 +69,6 @@ function toggleSidebar() {
   z-index: 5;
 }
 
-/* Close Button */
 .close-button {
   position: absolute;
   top: 16px;
@@ -78,7 +78,6 @@ function toggleSidebar() {
   cursor: pointer;
 }
 
-/* Sidebar Styles */
 .sidebar {
   @apply p-6 bg-gradient-to-br from-betpass-grey to-betpass-dark-grey rounded-r-3xl;
   width: 210px;
@@ -89,21 +88,17 @@ function toggleSidebar() {
   background-color: #f5f5f5;
   z-index: 20;
   transition: transform 0.3s ease-in-out;
-  /* Initially hidden off-screen */
   transform: translateX(100%);
 }
 
-/* Sidebar open state */
 .sidebar-open {
   transform: translateX(0);
 }
 
-/* Sidebar closed state */
 .sidebar-closed {
   transform: translateX(-100%);
 }
 
-/* Navigation and list styles */
 nav ul {
   list-style-type: none;
   padding: 0;

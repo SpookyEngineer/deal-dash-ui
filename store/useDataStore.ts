@@ -57,14 +57,23 @@ export const useCardStore = defineStore("cardStore", {
       }
     },
 
-    modifyCard(index: number, updatedData: Partial<Card>) {
-      if (index >= 0 && index < this.cardData.length) {
-        this.cardData[index] = {
-          ...this.cardData[index], // Preserve existing data
-          ...updatedData, // Overwrite with new data
-        };
-      } else {
-        console.error("Invalid index. Card not found.");
+    async editCard(updatedData: Card) {
+      const baseURL = useRuntimeConfig().public.mongoBaseUrl;
+      try {
+        const response = await axios.put(
+          `${baseURL}/deals/${updatedData._id}`,
+          updatedData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        return response.status;
+      } catch (error) {
+        console.error("Error trying to edit deal:", error);
+        return null;
       }
     },
 

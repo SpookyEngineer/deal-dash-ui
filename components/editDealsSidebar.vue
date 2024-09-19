@@ -63,11 +63,12 @@ const cardStore = useCardStore();
 
 interface Props {
   editDealSidebarOpen: boolean;
-  cardIndex: number;
+  cardId: string;
 }
 
 const props = defineProps<Props>();
-const emit = defineEmits(["update:editDealSidebarOpen"]);
+const emit = defineEmits(["update:editDealSidebarOpen", "update:dealEdited"]);
+const toast = useToast();
 
 // Local copy of the card data for editing
 const localCardData = ref<Card>({
@@ -76,9 +77,7 @@ const localCardData = ref<Card>({
   description: "",
   soldOut: false,
   createdDate: "",
-  _id: {
-    $oid: "",
-  },
+  _id: "",
 });
 
 // Watch for changes in the store and update localCardData
@@ -97,7 +96,14 @@ function toggleSidebar() {
 }
 
 function saveDeal() {
-  cardStore.modifyCard(props.cardIndex, localCardData.value);
+  const response = cardStore.editCard(localCardData.value);
+
+  if (!response) {
+    toast.add({ title: "Erro ao editar deal" });
+  }
+
+  emit("update:dealEdited");
+  toast.add({ title: "Deal editado" });
   toggleSidebar();
 }
 </script>

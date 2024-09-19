@@ -70,10 +70,11 @@
       @update:dealDeleted="fetchDeals(cardStore.currentPage, searchInput)"
       :cardId="cardId"
     />
-    <!--     <EditDealsSidebar
+    <EditDealsSidebar
       v-model:editDealSidebarOpen="editDealSidebarOpen"
-      :cardIndex="cardIndex"
-    /> -->
+      :cardId="cardId"
+      @update:dealEdited="fetchDeals(cardStore.currentPage, searchInput)"
+    />
   </div>
 </template>
 

@@ -6,34 +6,31 @@
     </button>
 
     <!-- Sidebar -->
-    <aside
-      :class="{
-        'sidebar-open': isSidebarOpen,
-        'sidebar-closed': !isSidebarOpen,
-      }"
-      class="sidebar"
-    >
-      <!-- Close Button inside the sidebar -->
-      <button @click="toggleSidebar" class="close-button">
-        <img src="../public/icons/menu.svg" alt="Close" />
-      </button>
 
-      <!-- Navigation -->
-      <nav class="mt-12">
-        <ul>
-          <li v-for="(item, index) in menuItems" :key="index">
-            <div class="flex">
-              <img :src="`/icons/${item.icon}.svg`" />
-              <NuxtLink
-                class="pl-3 text-betpass-green font-bold"
-                :to="item.route"
-                >{{ item.label }}</NuxtLink
-              >
-            </div>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+    <TransitionSlide :offset="['-100%', 0]">
+      <aside v-if="isSidebarOpen" class="sidebar">
+        <!-- Close Button inside the sidebar -->
+        <button @click="toggleSidebar" class="close-button">
+          <img src="../public/icons/menu.svg" alt="Close" />
+        </button>
+
+        <!-- Navigation -->
+        <nav class="mt-12">
+          <ul>
+            <li v-for="(item, index) in menuItems" :key="index">
+              <div class="flex">
+                <img :src="`/icons/${item.icon}.svg`" />
+                <NuxtLink
+                  class="pl-3 text-betpass-green font-bold"
+                  :to="item.route"
+                  >{{ item.label }}</NuxtLink
+                >
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+    </TransitionSlide>
 
     <!-- Overlay -->
     <TransitionFade>
@@ -87,16 +84,6 @@ function toggleSidebar() {
   left: 0;
   background-color: #f5f5f5;
   z-index: 20;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(100%);
-}
-
-.sidebar-open {
-  transform: translateX(0);
-}
-
-.sidebar-closed {
-  transform: translateX(-100%);
 }
 
 nav ul {

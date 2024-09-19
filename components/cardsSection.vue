@@ -13,7 +13,7 @@
     <!-- Deal Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
       <div
-        v-for="card in cardsData"
+        v-for="card in cardStore.cardData"
         :key="card._id"
         class="bg-betpass-grey py-4 px-8 rounded-2xl hover:shadow-xl"
       >
@@ -49,13 +49,13 @@
     <!-- Pagination Controls -->
     <div class="flex justify-center mt-14">
       <button
-        v-for="page in totalPages"
+        v-for="page in cardStore.totalPages"
         :key="page"
         :class="[
           'mx-1 h-[30px] w-[30px] text-black font-bold rounded-lg',
           {
-            'bg-betpass-green': currentPage === page,
-            'bg-gray-200': currentPage !== page,
+            'bg-betpass-green': cardStore.currentPage === page,
+            'bg-gray-200': cardStore.currentPage !== page,
           },
         ]"
         @click="goToPage(page)"
@@ -67,7 +67,7 @@
     <!-- Sidebars related to card manipulation -->
     <DeleteConformationSidebar
       v-model:deleteDealSidebarOpen="deleteDealSidebarOpen"
-      @update:dealDeleted="fetchDeals(currentPage, searchInput)"
+      @update:dealDeleted="fetchDeals(cardStore.currentPage, searchInput)"
       :cardId="cardId"
     />
     <!--     <EditDealsSidebar
@@ -80,7 +80,6 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
-import axios from "axios";
 
 const cardStore = useCardStore();
 
@@ -88,56 +87,37 @@ const deleteDealSidebarOpen = ref(false);
 const editDealSidebarOpen = ref(false);
 const cardId = ref("");
 
-const baseURL = useRuntimeConfig().public.mongoBaseUrl;
-const currentPage = ref(1);
-const totalPages = ref(1);
-
 const searchInput = ref("");
-const cardsData = ref<Card[]>([]);
 
-const fetchDeals = async (page: number, searchInput: string) => {
-  try {
-    const response = await axios.get(
-      `${baseURL}/deals?page=${page}&searchInput=${encodeURIComponent(
-        searchInput
-      )}`
-    );
-    const data = response.data;
-    cardsData.value = data.deals;
-    totalPages.value = data.totalPages;
-    currentPage.value = data.page;
-  } catch (error) {
-    console.error("Error fetching deals:", error);
-  }
+const fetchDeals = (page: number, searchInput: string) => {
+  cardStore.fetchDeals(page, searchInput);
 };
 
 watch(
   () => searchInput.value,
   (newSearchInput) => {
-    fetchDeals(currentPage.value, newSearchInput);
+    fetchDeals(cardStore.currentPage, newSearchInput);
   }
 );
 
 const goToPage = (pageIndex: number) => {
-  currentPage.value = pageIndex;
-  fetchDeals(currentPage.value, searchInput.value);
+  cardStore.currentPage = pageIndex;
+  fetchDeals(cardStore.currentPage, searchInput.value);
 };
 
 const editDeal = (id?: string) => {
   getCardWithId(id);
-
   editDealSidebarOpen.value = true;
 };
 
 const removeCard = (id?: string) => {
   getCardWithId(id);
-
   deleteDealSidebarOpen.value = true;
 };
 
 function getCardWithId(id?: string) {
   if (!id) return;
-  const card = cardsData.value.find((card) => card._id === id);
+  const card = cardStore.cardData.find((card) => card._id === id);
 
   if (card) {
     cardId.value = id;
@@ -146,6 +126,6 @@ function getCardWithId(id?: string) {
 }
 
 onMounted(() => {
-  fetchDeals(currentPage.value, searchInput.value);
+  fetchDeals(cardStore.currentPage, searchInput.value);
 });
 </script>

@@ -18,6 +18,8 @@ export const useCardStore = defineStore("cardStore", {
     cardData: [] as Card[],
     houseValues: [] as number[],
     cardBeingEdited: {} as Card,
+    totalPages: 1,
+    currentPage: 1,
   }),
   actions: {
     async loadInitialData() {
@@ -51,6 +53,24 @@ export const useCardStore = defineStore("cardStore", {
         };
       } else {
         console.error("Invalid index. Card not found.");
+      }
+    },
+
+    async fetchDeals(page: number, searchInput: string) {
+      const baseURL = useRuntimeConfig().public.mongoBaseUrl;
+
+      try {
+        const response = await axios.get(
+          `${baseURL}/deals?page=${page}&searchInput=${encodeURIComponent(
+            searchInput
+          )}`
+        );
+        const data = response.data;
+        this.cardData = data.deals;
+        this.totalPages = data.totalPages;
+        this.currentPage = data.page;
+      } catch (error) {
+        console.error("Error fetching deals:", error);
       }
     },
   },

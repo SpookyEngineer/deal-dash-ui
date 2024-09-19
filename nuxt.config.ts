@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      mongoBaseUrl: process.env.NUXT_PUBLIC_MONGO_BASE_URL,
+    },
+  },
+
   modules: [
     "@nuxt/ui",
     /* The above also includes: 

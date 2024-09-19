@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- Search Input -->
-    <div class="w-2/3 md:w-2/5 lg:w-1/4 mb-16">
+    <div class="mb-16">
       <input
         type="text"
         v-model="searchInput"
         placeholder="Pesquisar por nome"
-        class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none"
+        class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none w-2/3 md:w-2/5 lg:w-1/4"
       />
     </div>
 

@@ -1,5 +1,15 @@
 <template>
   <div>
+    <!-- Search Input -->
+    <div class="w-2/3 md:w-2/5 lg:w-1/4 mb-16">
+      <input
+        type="text"
+        v-model="searchInput"
+        placeholder="Pesquisar por nome"
+        class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none"
+      />
+    </div>
+
     <!-- Deal Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
       <div
@@ -67,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 import axios from "axios";
 
@@ -79,6 +89,12 @@ interface Card {
   createdDate: string;
 }
 
+interface Props {
+  searchInput: string;
+}
+
+const props = defineProps<Props>();
+
 const cardStore = useCardStore();
 
 const deleteDealSidebarOpen = ref(false);
@@ -89,12 +105,17 @@ const baseURL = useRuntimeConfig().public.mongoBaseUrl;
 const currentPage = ref(1);
 const totalPages = ref(1);
 
+const searchInput = ref(props.searchInput || "");
 const cardsData = ref<Card[]>([]);
 
-const fetchDeals = async (page: number) => {
+const fetchDeals = async (page: number, searchInput: string) => {
   try {
-    const response = await axios.get(`${baseURL}/deals?page=${page}`);
-    const data = await response.data;
+    const response = await axios.get(
+      `${baseURL}/deals?page=${page}&searchInput=${encodeURIComponent(
+        searchInput
+      )}`
+    );
+    const data = response.data;
     cardsData.value = data.deals;
     totalPages.value = data.totalPages;
     currentPage.value = data.page;
@@ -103,9 +124,16 @@ const fetchDeals = async (page: number) => {
   }
 };
 
+watch(
+  () => searchInput.value,
+  (newSearchInput) => {
+    fetchDeals(currentPage.value, newSearchInput);
+  }
+);
+
 const goToPage = (pageIndex: number) => {
   currentPage.value = pageIndex;
-  fetchDeals(currentPage.value);
+  fetchDeals(currentPage.value, searchInput.value);
 };
 
 const editDeal = (index: number) => {
@@ -120,6 +148,6 @@ const removeCard = (index: number) => {
 };
 
 onMounted(() => {
-  fetchDeals(currentPage.value);
+  fetchDeals(currentPage.value, searchInput.value);
 });
 </script>

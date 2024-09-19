@@ -24,7 +24,7 @@
               :id="`phantom checkbox ${card._id}`"
               class="h-[23px] w-[23px] rounded-lg bg-[#D9D9D9]"
             />
-            <p class="ml-2">{{ card.house }}</p>
+            <p class="ml-2 font-bold">{{ card.house }}</p>
           </div>
           <div class="flex items-center">
             <button @click="editDeal(card._id)">
@@ -40,7 +40,23 @@
         <div class="flex flex-col text-sm font-medium">
           <p class="mt-8">Descrição do deal</p>
           <p class="mt-6">Nota: {{ card.grade }}</p>
-          <p class="my-2">Esgotado: {{ card.soldOut }}</p>
+          <p class="my-2">
+            <span class="flex w-5">
+              <span class="mr-2"> Esgotado: </span>
+              <img
+                class="w-4"
+                v-if="card.soldOut"
+                src="../public/icons/check-mark.svg"
+                alt="check-mark"
+              />
+              <img
+                class="w-4"
+                v-else
+                src="../public/icons/red-x.svg"
+                alt="red-x"
+              />
+            </span>
+          </p>
           <p class="mb-8">Data de criação: {{ card.createdDate }}</p>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# Sidebar Component Documentation
+# `baseDealsSidebar` Documentation
 
 This Vue component is a sidebar that slides in from the right side of the screen and includes an overlay that fades in. The component uses two custom transitions: `TransitionSlide` for the sidebar and `TransitionFade` for the overlay.
 

@@ -4,7 +4,5 @@ interface Card {
   description: string;
   soldOut: boolean;
   createdDate: string;
-  _id?: {
-    $oid: string;
-  };
+  _id?: string;
 }

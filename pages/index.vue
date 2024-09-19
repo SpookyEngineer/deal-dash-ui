@@ -29,25 +29,7 @@
 
     <!-- Cards Section -->
     <div class="mt-16">
-      <CardsSection :cardsData="paginatedCardsData" />
-    </div>
-
-    <!-- Pagination Controls -->
-    <div class="flex justify-center">
-      <button
-        v-for="page in totalPages"
-        :key="page"
-        :class="[
-          'mx-1 h-[30px] w-[30px] text-black font-bold rounded-lg',
-          {
-            'bg-betpass-green': currentPage === page,
-            'bg-gray-200': currentPage !== page,
-          },
-        ]"
-        @click="goToPage(page)"
-      >
-        {{ page }}
-      </button>
+      <CardsSection />
     </div>
   </div>
 </template>
@@ -61,9 +43,6 @@ const cardStore = useCardStore();
 const searchInput = ref("");
 const createDealsSidebarOpen = ref(false);
 
-const currentPage = ref(1);
-const itemsPerPage = 6;
-
 function toggleCreateDealsSidebar() {
   createDealsSidebarOpen.value = !createDealsSidebarOpen.value;
 }
@@ -73,26 +52,6 @@ const filteredCardsData = computed(() => {
   return cardStore.cardData.filter((card) =>
     card.house.toLowerCase().includes(searchTerm)
   );
-});
-
-const paginatedCardsData = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return filteredCardsData.value.slice(startIndex, endIndex);
-});
-
-const totalPages = computed(() =>
-  Math.ceil(filteredCardsData.value.length / itemsPerPage)
-);
-
-function goToPage(page: number) {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page;
-  }
-}
-
-watch(searchInput, () => {
-  currentPage.value = 1;
 });
 
 onMounted(() => {

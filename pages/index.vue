@@ -13,29 +13,17 @@
     </div>
     <div class="border-t border-white opacity-20 w-full h-px my-8" />
 
+    <!-- Cards Section -->
+    <CardsSection :searchInput="searchInput" />
+
     <CreateDealsSidebar
       v-model:createDealsSidebarOpen="createDealsSidebarOpen"
     />
-
-    <!-- Input filter -->
-    <div class="flex flex-col w-2/3 md:w-2/5 lg:w-1/4">
-      <input
-        type="text"
-        v-model="searchInput"
-        placeholder="Pesquisar por nome"
-        class="bg-[#A5A5A5] bg-opacity-15 rounded-[10px] border-none p-2 focus:outline-none"
-      />
-    </div>
-
-    <!-- Cards Section -->
-    <div class="mt-16">
-      <CardsSection />
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
@@ -46,13 +34,6 @@ const createDealsSidebarOpen = ref(false);
 function toggleCreateDealsSidebar() {
   createDealsSidebarOpen.value = !createDealsSidebarOpen.value;
 }
-
-const filteredCardsData = computed(() => {
-  const searchTerm = searchInput.value.toLowerCase();
-  return cardStore.cardData.filter((card) =>
-    card.house.toLowerCase().includes(searchTerm)
-  );
-});
 
 onMounted(() => {
   cardStore.loadInitialData();

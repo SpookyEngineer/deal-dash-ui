@@ -14,7 +14,6 @@
     "@nuxt/ui": "^2.18.4",
     "@pinia/nuxt": "^0.5.4",
     "axios": "^1.7.7",
-    "dotenv": "^16.4.5",
     "nuxt": "^3.13.0",
     "pinia": "^2.2.2",
     "vue": "latest",

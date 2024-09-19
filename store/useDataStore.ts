@@ -1,10 +1,5 @@
 import { defineStore } from "pinia";
-import dotenv from "dotenv";
-
-// Loading environment variables
-dotenv.config();
-
-const baseURL = process.env.MONGO_BASE_URL;
+import axios from "axios";
 
 interface Card {
   house: string;
@@ -12,6 +7,21 @@ interface Card {
   description: string;
   soldOut: boolean;
   createdDate: string;
+  _id?: {
+    $oid: string;
+  };
+}
+
+async function fetchHouseValues() {
+  const baseURL = useRuntimeConfig().public.mongoBaseUrl;
+
+  try {
+    const response = await axios.get(`${baseURL}/houseValues`);
+
+    return response.data.houseValues;
+  } catch (error) {
+    console.error("Error fetching house values:", error);
+  }
 }
 
 export const useCardStore = defineStore("cardStore", {
@@ -21,11 +31,10 @@ export const useCardStore = defineStore("cardStore", {
     cardBeingEdited: {} as Card,
   }),
   actions: {
-    loadInitialData() {
-      // This will be where the data will be fetched from the database
-
-      // Temporary Data
-      this.houseValues = [1, 2, 3, 4, 5];
+    async loadInitialData() {
+      // Fetching houseValues
+      const houseValues = await fetchHouseValues();
+      this.houseValues = houseValues;
 
       // When implementing the fetch, make the data sort by latest date
       this.cardData = [

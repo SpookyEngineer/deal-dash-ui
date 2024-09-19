@@ -32,6 +32,7 @@ import { computed } from "vue";
 import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
+const toast = useToast();
 
 interface Props {
   deleteDealSidebarOpen: boolean;
@@ -53,9 +54,13 @@ function toggleSidebar() {
 function removeCard() {
   const response = cardStore.removeCard(props.cardId);
 
-  if (!response) return;
+  if (!response) {
+    toast.add({ title: "Erro ao deletar deal" });
+    return;
+  }
 
   emit("update:dealDeleted");
+  toast.add({ title: "Deal deletado" });
   toggleSidebar();
 }
 </script>

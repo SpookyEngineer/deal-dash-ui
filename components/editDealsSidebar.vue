@@ -96,14 +96,26 @@ function toggleSidebar() {
 }
 
 function saveDeal() {
+  // Validation for required fields
+  if (!localCardData.value.house) {
+    toast.add({ title: "Nome da casa é obrigatório" });
+    return;
+  }
+
+  if (!localCardData.value.description) {
+    toast.add({ title: "Descrição é obrigatória" });
+    return;
+  }
+
   const response = cardStore.editCard(localCardData.value);
 
   if (!response) {
     toast.add({ title: "Erro ao editar deal" });
+    return;
   }
 
+  toast.add({ title: "Deal editado com sucesso" });
   emit("update:dealEdited");
-  toast.add({ title: "Deal editado" });
   toggleSidebar();
 }
 </script>

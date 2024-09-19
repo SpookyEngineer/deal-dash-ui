@@ -33,6 +33,7 @@ import { useCardStore } from "~/store/useDataStore";
 
 const cardStore = useCardStore();
 const toast = useToast();
+const toastTimeout = cardStore.toastTimeout;
 
 interface Props {
   deleteDealSidebarOpen: boolean;
@@ -55,12 +56,18 @@ function removeCard() {
   const response = cardStore.removeCard(props.cardId);
 
   if (!response) {
-    toast.add({ title: "Erro ao deletar deal" });
+    toast.add({
+      title: "Erro ao deletar deal",
+      timeout: toastTimeout,
+    });
     return;
   }
 
   emit("update:dealDeleted");
-  toast.add({ title: "Deal deletado com sucesso" });
+  toast.add({
+    title: "Deal deletado com sucesso",
+    timeout: toastTimeout,
+  });
   toggleSidebar();
 }
 </script>

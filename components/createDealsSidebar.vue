@@ -70,6 +70,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits(["update:createDealsSidebarOpen"]);
 const toast = useToast();
+const toastTimeout = cardStore.toastTimeout;
 
 const houseName = ref("");
 const description = ref("");
@@ -105,12 +106,18 @@ watch(
 function createDeal() {
   // Validation for required fields
   if (!houseName.value) {
-    toast.add({ title: "Nome da casa é obrigatório" });
+    toast.add({
+      title: "Nome da casa é obrigatório",
+      timeout: toastTimeout,
+    });
     return;
   }
 
   if (!description.value) {
-    toast.add({ title: "Descrição é obrigatória" });
+    toast.add({
+      title: "Descrição é obrigatória",
+      timeout: toastTimeout,
+    });
     return;
   }
 
@@ -123,11 +130,17 @@ function createDeal() {
   });
 
   if (!response) {
-    toast.add({ title: "Erro ao criar deal" });
+    toast.add({
+      title: "Erro ao criar deal",
+      timeout: toastTimeout,
+    });
     return;
   }
 
-  toast.add({ title: "Deal criado com sucesso" });
+  toast.add({
+    title: "Deal criado com sucesso",
+    timeout: toastTimeout,
+  });
   cardStore.fetchDeals(1, "");
   resetAndToggleSidebar();
 }

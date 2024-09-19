@@ -20,6 +20,7 @@ export const useCardStore = defineStore("cardStore", {
     cardBeingEdited: {} as Card,
     totalPages: 1,
     currentPage: 1,
+    toastTimeout: 2500,
   }),
   actions: {
     async loadInitialData() {

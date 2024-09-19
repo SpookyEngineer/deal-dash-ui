@@ -69,6 +69,7 @@ interface Props {
 const props = defineProps<Props>();
 const emit = defineEmits(["update:editDealSidebarOpen", "update:dealEdited"]);
 const toast = useToast();
+const toastTimeout = cardStore.toastTimeout;
 
 // Local copy of the card data for editing
 const localCardData = ref<Card>({
@@ -98,23 +99,35 @@ function toggleSidebar() {
 function saveDeal() {
   // Validation for required fields
   if (!localCardData.value.house) {
-    toast.add({ title: "Nome da casa é obrigatório" });
+    toast.add({
+      title: "Nome da casa é obrigatório",
+      timeout: toastTimeout,
+    });
     return;
   }
 
   if (!localCardData.value.description) {
-    toast.add({ title: "Descrição é obrigatória" });
+    toast.add({
+      title: "Descrição é obrigatória",
+      timeout: toastTimeout,
+    });
     return;
   }
 
   const response = cardStore.editCard(localCardData.value);
 
   if (!response) {
-    toast.add({ title: "Erro ao editar deal" });
+    toast.add({
+      title: "Erro ao editar deal",
+      timeout: toastTimeout,
+    });
     return;
   }
 
-  toast.add({ title: "Deal editado com sucesso" });
+  toast.add({
+    title: "Deal editado com sucesso",
+    timeout: toastTimeout,
+  });
   emit("update:dealEdited");
   toggleSidebar();
 }

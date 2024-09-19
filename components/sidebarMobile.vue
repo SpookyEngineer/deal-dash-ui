@@ -17,7 +17,7 @@
         <!-- Navigation -->
         <nav class="mt-12">
           <ul>
-            <li v-for="(item, index) in menuItems" :key="index">
+            <li v-for="(item, index) in SidebarMenuItems" :key="index">
               <div class="flex">
                 <img :src="`/icons/${item.icon}.svg`" />
                 <NuxtLink
@@ -45,11 +45,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-// Define menu items and sidebar state
-const menuItems = [{ label: "Loja de Deals", route: "/", icon: "deals" }];
+interface Props {
+  SidebarMenuItems: SidebarMenuItem[];
+}
+
+const props = defineProps<Props>();
+
 const isSidebarOpen = ref(false);
 
-// Toggle sidebar open/close state
 function toggleSidebar() {
   isSidebarOpen.value = !isSidebarOpen.value;
 }

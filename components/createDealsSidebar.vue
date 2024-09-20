@@ -103,7 +103,7 @@ watch(
   { immediate: true }
 );
 
-function createDeal() {
+async function createDeal() {
   // Validation for required fields
   if (!houseName.value) {
     toast.add({
@@ -121,7 +121,7 @@ function createDeal() {
     return;
   }
 
-  const response = cardStore.addCard({
+  const response = await cardStore.addCard({
     house: houseName.value,
     grade: grade.value,
     description: description.value,

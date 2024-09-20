@@ -96,7 +96,7 @@ function toggleSidebar() {
   emit("update:editDealSidebarOpen", !props.editDealSidebarOpen);
 }
 
-function saveDeal() {
+async function saveDeal() {
   // Validation for required fields
   if (!localCardData.value.house) {
     toast.add({
@@ -114,7 +114,7 @@ function saveDeal() {
     return;
   }
 
-  const response = cardStore.editCard(localCardData.value);
+  const response = await cardStore.editCard(localCardData.value);
 
   if (!response) {
     toast.add({

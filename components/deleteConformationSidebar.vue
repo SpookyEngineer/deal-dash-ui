@@ -52,8 +52,8 @@ function toggleSidebar() {
   emit("update:deleteDealSidebarOpen", !props.deleteDealSidebarOpen);
 }
 
-function removeCard() {
-  const response = cardStore.removeCard(props.cardId);
+async function removeCard() {
+  const response = await cardStore.removeCard(props.cardId);
 
   if (!response) {
     toast.add({

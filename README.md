@@ -1,8 +1,18 @@
-# Nuxt 3 Minimal Starter
+# Betpass Assessment (Nuxt 3)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Used Packages
+
+- Nuxt UI:
+  - Nuxt Icon
+  - TailwindCSS
+  - Nuxt Color Mode
+- Vue Transitions
+- Pinia
+- Axios
 
 ## Setup
+
+**_This project was made using Node v18.20.1_**
 
 Make sure to install the dependencies:
 
@@ -72,4 +82,4 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Make sure to create your `.env`, an `example.env` is provided to use as a base.

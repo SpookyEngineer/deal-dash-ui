@@ -1,5 +1,8 @@
 # Betpass Assessment (Nuxt 3)
 
+## Online Demo:
+https://betpass-assessment-gabriels-projects-111e76e2.vercel.app/
+
 ## Used Packages
 
 - Nuxt UI:

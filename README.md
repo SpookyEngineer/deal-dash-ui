@@ -1,4 +1,4 @@
-# Betpass Assessment (Nuxt 3)
+# DealDash UI (Nuxt 3)
 
 ## Online Demo:
 https://betpass-assessment.vercel.app/
